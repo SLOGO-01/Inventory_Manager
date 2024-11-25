@@ -1,0 +1,372 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    
+}
+
+body {
+    font-family: Nunito Sans;
+    line-height: 1.6;
+    color: #333;
+}
+
+a{
+    text-decoration: none;
+    color: #333;
+}
+
+/* Container Layout */
+.container {
+    display: grid;
+    grid-template-columns: 200px 1fr;  /* Creates a 2-column layout with a fixed 200px sidebar and flexible main content     */
+    grid-template-rows: auto 1fr auto; /*Defines 3 rows: header (auto height), content (fills remaining space), footer (auto height)*/
+    min-height: 100vh;
+}
+
+/* Header */
+.header {
+    grid-column: 1 / -1;
+    background-color: #08305a;
+    color: white;
+    text-align: center;
+    padding: 12px;
+}
+
+/* Sidebar */
+.sidebar {
+    grid-row: 2;
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-right: 1px solid #ddd;
+}
+
+.sidebar ul {
+    list-style-type: none;
+}
+
+.sidebar ul li {
+    margin-bottom: 10px;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: #333;
+    display: block;
+    /* border: solid; */
+    border-radius: 15px;
+    padding: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.sidebar ul li a:hover,
+.sidebar ul li a.active {
+    background-color: #e0e0e0;
+    color: #08305a;
+}
+
+/* Content Area */
+.content {
+    grid-column: 2;
+    padding: 20px;
+    background-color: #fff;
+}
+
+/* Product Highlights */
+.product-cardholder {
+    margin-top: 50px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(25%, 1fr));
+    gap: 30px;
+}
+
+.product-card {
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover {
+    transform: scale(1.05);
+}
+
+.product-card img {
+    width: 100%;
+    height: 250px;
+    object-fit:contain;
+}
+
+.product-card h3{
+    padding-top: 0px;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    padding-right: 10px;
+    text-align: center;
+}
+.product-card p {
+    padding: 10px;
+    text-align: center;
+}
+
+/* Tables */
+.table-responsive {
+    overflow-x: auto; /* Allow horizontal scrolling */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    margin-top: 20px; /* Add some margin for spacing */
+}
+
+.product-table, 
+.categories-table, 
+.reports-table {
+    width: 100%;
+    max-width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.product-table th, 
+.categories-table th, 
+.reports-table th {
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+
+.product-table td, 
+.categories-table td, 
+.reports-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn.edit {
+    background-color: #28a745;
+    color: white;
+}
+
+.btn.delete {
+    background-color: #dc3545;
+    color: white;
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+
+.btn.Generate{
+    background-color: #08305a;
+    color: white;
+}
+
+/* Footer */
+.footer {
+    grid-column: 1 / -1;
+    background-color: #343a40;
+    color: white;
+    text-align: center;
+    padding: 10px;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .container {
+        grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+        grid-column: 1 / -1;
+        grid-row: auto;
+        border-right: none;
+        border-bottom: 1px solid #ddd;
+        height: fit-content;
+    }
+
+    .sidebar ul {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .sidebar ul li {
+        margin: 0;
+    }
+
+    .content {
+        grid-column: 1 / -1;
+    }
+    
+    .product-highlights {
+        grid-template-columns: 1fr;
+    }
+
+    .product-table, 
+    .categories-table, 
+    .reports-table {
+        display: block; /* Make tables block elements */
+        overflow-x: auto; /* Allow horizontal scrolling */
+        white-space: nowrap; /* Prevent text wrapping */
+    }
+
+    .product-table th, 
+    .categories-table th, 
+    .reports-table th,
+    .product-table td, 
+    .categories-table td, 
+    .reports-table td {
+        display: inline-block; /* Display cells inline-block for better layout */
+        width: auto; /* Set width to auto for flexibility */
+    }
+
+}
+
+/* Search Input */
+.search-container {
+    margin-bottom: 20px;
+}
+
+.search-input {
+    width: 100%;
+    max-width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+}
+
+
+
+
+/* Reports page */
+/* .reports-section  div{
+    margin-top: 40px;
+    display: flex;
+    
+    width: 100%;
+    gap: 70px;
+    border: solid 1px;
+    border-radius: 10px;
+}
+
+.reports-section label{
+font-weight: 600;
+}
+
+.reports-section input{
+    border-radius: 5px;
+    border: 1.5px solid;
+    font-size: 14px;
+} */
+
+/* Date Range Section Styling */
+.date-range-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.date-range-container label {
+    font-weight: 600;
+    color: #495057;
+    margin-right: 10px;
+}
+
+.date-range-input-group {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.date-range-input-group label {
+    white-space: nowrap;
+}
+
+.date-range-input {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Date Input Styling */
+.date-range-container input[type="date"] {
+    padding: 8px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    appearance: none;
+    -webkit-appearance: none;
+    background-color: white;
+    cursor: pointer;
+}
+
+.date-range-container input[type="date"]:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Generate Report Button */
+.btn.Generate {
+    background-color: #08305a;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.btn.Generate:hover {
+    background-color: #063262;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.btn.Generate:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .date-range-container {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+    }
+
+    .date-range-input-group {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .date-range-input {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .date-range-container input[type="date"] {
+        width: 100%;
+    }
+}
+
