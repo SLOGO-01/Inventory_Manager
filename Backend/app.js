@@ -1,4 +1,3 @@
-
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
@@ -13,6 +12,7 @@ import categoryRouter from "./routes/categoryRoutes.js";
 import orderRouter from "./routes/orderRoutes.js";
 import orderItemRouter from "./routes/orderItemRoutes.js";
 import inventoryMovementRouter from "./routes/inventoryMovementRoutes.js";
+import userRouter from "./routes/userRoutes.js";
 
 const __dirname = dirname(dirname(fileURLToPath(import.meta.url)));
 const app = express();
@@ -29,6 +29,7 @@ app.get("/", (req, res) => {
   });
 });
 
+app.use("/api/v1/user", userRouter);
 app.use("/api/v1/customer", customerRouter);
 app.use("/api/v1/product", productRouter);
 app.use("/api/v1/category", categoryRouter);
@@ -36,12 +37,4 @@ app.use("/api/v1/supplier", categoryRouter);
 app.use("/api/v1/order", orderRouter);
 app.use("/api/v1/order-item", orderItemRouter);
 app.use("/api/v1/inventory-movement", inventoryMovementRouter);
-
-console.log('DB_USER:', process.env.DB_USER);
-console.log('DB_PASS:', process.env.DB_PASS);
-console.log('DB_NAME:', process.env.DB_NAME);
-console.log('DB_HOST:', process.env.DB_HOST);
-console.log('DB_PORT:', process.env.DB_PORT);
-
-
 export default app;
