@@ -1,90 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
     <link href="https://api.fontshare.com/v2/css?f[]=outfit@100,200,300,400,500,600,700,800&display=swap" rel="stylesheet">
 
-    <title>Counta Inventory Management - Home</title>
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="login.css">
 </head>
 
-<body >
+<body>
+
     <div class="container">
-        <header class="header">
-            <h1>Counta Inventory Management</h1>
-        </header>
+        <div class="image-left">
+            <img src="./Images/ashley-_ZRWgz-a60Q-unsplash.jpg" alt="Inventory Management">
+        </div>
 
-        <nav class="sidebar">
-            <ul>
-                <li><a href="index.html" class="active">Dashboard</a></li>
-                <li><a href="Products.html">Products</a></li>
-                <li><a href="Categories.html">Categories</a></li>
-                <li><a href="Reports.html">Reports</a></li>
-            </ul>
-        </nav>
+        <div class="login-right">
+            <h3>Counta</h3>
+            <h4>Login</h4>
+            <div class="login-form">
+                <form>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
 
-        <main class="content">
-            <section class="home-section">
-                <marquee scrollamount="10" behavior="scroll" direction="left">
-                    <h2 style="color: #08305a">
-                        Welcome to the Counta Inventory Management System
-                    </h2>
-                </marquee>
-                <p style="font-size: 20px; font-weight: 100">
-                    Manage your products, categories, and reports efficiently.
-                </p>
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
 
-                <div class="product-cardholder">
-                    <a href="Products.html">
-                        <div  class="product-card">
-                            <img id="special-img" src="./Images/Amazon Image1.jpg" alt="Product 1" />
-                            <h3>Product 1</h3>
-                            <p>Description of Product 1</p>
-                        </div>
-                    </a>
-                    <a href="./Products.html">
-                        <div   class="product-card">
-                            <img id="special-img" src="./Images/Amazon image2.jpg" alt="Product 2" />
-                            <h3>Product 2</h3>
-                            <p>Description of Product 2</p>
-                        </div>
-                    </a>
-                    <a href="Products.html">
-                        <div class="product-card">
-                            <img id="special-img" src="./Images/Amazon Image3.jpg" alt="Product 3" />
-                            <h3>Product 3</h3>
-                            <p>Description of Product 3</p>
-                        </div>
-                    </a>
-                    <a href="Products.html">
-                        <div class="product-card">
-                            <img src="./Images/rachit-tank-2cFZ_FB08UM-unsplash.jpg" alt="Product 3" />
-                            <h3>Product 4</h3>
-                            <p>Description of Product 4</p>
-                        </div>
-                    </a>
-                    <a href="Products.html">
-                        <div class="product-card">
-                            <img src="./Images/mitch-moondae-zXFtsdi9dIc-unsplash.jpg" alt="Product 3" />
-                            <h3>Product 5</h3>
-                            <p>Description of Product 5</p>
-                        </div>
-                    </a>
-                    <a href="Products.html">
-                        <div class="product-card">
-                            <img src="./Images/kadarius-seegars-Mxy5gokl8mE-unsplash.jpg" alt="Product 3" />
-                            <h3>Product 6</h3>
-                            <p>Description of Product 6</p>
-                        </div>
-                    </a>
-                </div>
-            </section>
-        </main>
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>  
 
-        <footer class="footer">© 2024 Inventory Management Co. </footer>
-    </div>
+                </form>
+                <a href="Dashboard.html"> 
+                    <div class="button">
+                        <button type="submit">LOGIN</button>
+                </div></a>
+            </div>
+
+            <div class="login-info">
+                <p><a href="Signup.html" class="forgot-password">Forgot your password?</a></p>
+                <p>Don't have an account? <a href="signup.html" class="signup-link">Sign up here</a></p>
+            </div>
+        </div>
+    </div>   
+ 
 </body>
-
 </html>
