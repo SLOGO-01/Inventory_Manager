@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://api.fontshare.com/v2/css?f[]=outfit@100,200,300,400,500,600,700,800&display=swap" rel="stylesheet">
+    <title>Inventory Management - Categories</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+        /* Modal Styles */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgba(0, 0, 0, 0.5); 
+            padding-top: 60px; 
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 5% auto; 
+            padding: 20px;
+            border: 1px solid #888;
+            border-radius: 8px; 
+            width: 50%; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Counta Inventory Management</h1>
+        </header>
+        
+        <nav class="sidebar">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="categories.html" class="active">Categories</a></li>
+                <li><a href="reports.html">Reports</a></li>
+            </ul>
+        </nav>
+        
+        <main class="content">
+            <section class="categories-section">
+                <h2>Categories</h2>
+                <p>Manage your categories here.</p>
+
+                <button id="addCategoryBtn" class="btn">Create New Category</button>
+                
+                <div class="table-responsiveness">
+                    <table class="categories-table">
+                        <thead>
+                            <tr>
+                                <th>Category ID</th>
+                                <th>Category Name</th>
+                                <th>Description</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="categoriesTableBody">
+                            <tr>
+                                <td>1</td>
+                                <td><a href="#" class="category-name" data-category-id="1">Electronics</a></td>
+                                <td>Devices and gadgets</td>
+                                <td>
+                                    <button class="btn edit">Edit</button>
+                                    <button class="btn delete">Delete</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td><a href="#" class="category-name" data-category-id="2">Clothing</a></td>
+                                <td>Apparel and accessories</td>
+                                <td>
+                                    <button class="btn edit">Edit</button>
+                                    <button class="btn delete">Delete</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td><a href="#" class="category-name" data-category-id="3">Home Appliances</a></td>
+                                <td>Appliances for home use</td>
+                                <td>
+                                    <button class="btn edit">Edit</button>
+                                    <button class="btn delete">Delete</button>
+                                </ ```html
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="productsContainer" class="products-list" style="display: none;">
+                    <h3>Products in this Category</h3>
+                    <ul id="productsList"></ul>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Add Category Modal -->
+    <div id="addCategoryModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeAddCategoryModal">&times;</span>
+            <h2>Add New Category</h2>
+            <label for="categoryName">Category Name:</label>
+            <input type="text" id="categoryName" required>
+            <label for="categoryDescription">Description:</label>
+            <input type="text" id="categoryDescription" required>
+            <button id="saveCategoryBtn" class="btn">Save Category</button>
+        </div>
+    </div>
+
+   <!-- Products Modal -->
+<div id="productsModal" class="modal">
+    <div class="modal-content">
+        <span class="close" id="closeProductsModal">&times;</span>
+        <h3>Products in this Category</h3>
+        <ul id="productsList" class="product-list"></ul>
+    </div>
+</div>
+
+    <!-- Edit Category Modal -->
+<div id="editCategoryModal" class="modal">
+    <div class="modal-content">
+        <span class="close" id="closeEditCategoryModal">&times;</span>
+        <h2>Edit Category</h2>
+        <label for="editCategoryName">Category Name:</label>
+        <input type="text" id="editCategoryName" required>
+        <label for="editCategoryDescription">Description:</label>
+        <input type="text" id="editCategoryDescription" required>
+        <button id="updateCategoryBtn" class="btn">Update Category</button>
+    </div>
+</div>
+
+    <script>
+        // Open Add Category Modal
+        document.getElementById('addCategoryBtn').addEventListener('click', function() {
+            document.getElementById('addCategoryModal').style.display = 'block';
+        });
+
+        // Close Add Category Modal
+        document.getElementById('closeAddCategoryModal').addEventListener('click', function() {
+            document.getElementById('addCategoryModal').style.display = 'none';
+        });
+
+        // Save New Category
+        document.getElementById('saveCategoryBtn').addEventListener('click', function() {
+            const categoryName = document.getElementById('categoryName').value;
+            const categoryDescription = document.getElementById('categoryDescription').value;
+            if (categoryName && categoryDescription) {
+                const tableBody = document.getElementById('categoriesTableBody');
+                const newRow = tableBody.insertRow();
+                const newId = tableBody.rows.length; // Get the new ID based on the number of rows
+                newRow.innerHTML = `
+                    <td>${newId}</td>
+                    <td><a href="#" class="category-name" data-category-id="${newId}">${categoryName}</a></td>
+                    <td>${categoryDescription}</td>
+                    <td>
+                        <button class="btn edit">Edit</button>
+                        <button class="btn delete">Delete</button>
+                    </td>
+                `;
+                document.getElementById('addCategoryModal').style.display = 'none';
+                document.getElementById('categoryName').value = '';
+                document.getElementById('categoryDescription').value = '';
+            } else {
+                alert("Please fill in both fields.");
+            }
+        });
+
+        let currentRow; // To keep track of the row being edited
+
+// Open Edit Category Modal
+document.getElementById('categoriesTableBody').addEventListener('click', function(e) {
+    if (e.target.classList.contains('edit')) {
+        currentRow = e.target.closest('tr');
+        const categoryName = currentRow.cells[1].innerText;
+        const categoryDescription = currentRow.cells[2].innerText;
+        
+        document.getElementById('editCategoryName').value = categoryName;
+        document.getElementById('editCategoryDescription').value = categoryDescription;
+        
+        document.getElementById('editCategoryModal').style.display = 'block';
+    }
+});
+
+// Close Edit Category Modal
+document.getElementById('closeEditCategoryModal').addEventListener('click', function() {
+    document.getElementById('editCategoryModal').style.display = 'none';
+});
+
+// Update Category
+document.getElementById('updateCategoryBtn').addEventListener('click', function() {
+    const newName = document.getElementById('editCategoryName').value;
+    const newDescription = document.getElementById('editCategoryDescription').value;
+    
+    if (newName && newDescription) {
+        currentRow.cells[1].innerHTML = `<a href="#" class="category-name" data-category-id="${currentRow.cells[0].innerText}">${newName}</a>`;
+        currentRow.cells[2].innerText = newDescription;
+        document.getElementById('editCategoryModal').style.display = 'none';
+    }
+});
+
+
+// Function to view products in a category
+document.getElementById('categoriesTableBody').addEventListener('click', function(e) {
+    if (e.target.classList.contains('category-name')) {
+        const categoryId = e.target.getAttribute('data-category-id');
+        const productsList = document.getElementById('productsList');
+
+        // Example product details
+        productsList.innerHTML = `
+            <li class="product-item">Product 1 in Category ${categoryId}: Description of Product 1</li>
+            <li class="product-item">Product 2 in Category ${categoryId}: Description of Product 2</li>
+            <li class="product-item">Product 3 in Category ${categoryId}: Description of Product 3</li>
+        `;
+        document.getElementById('productsModal').style.display = 'block';
+    }
+});
+        
+
+        // Close Products Modal
+        document.getElementById('closeProductsModal').addEventListener('click', function() {
+            document.getElementById('productsModal').style.display = 'none';
+        
+        });
+
+        // Close modals when clicking outside of them
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('addCategoryModal')) {
+                document.getElementById('addCategoryModal').style.display = 'none';
+            }
+            if (event.target == document.getElementById('productsModal')) {
+                document.getElementById('productsModal').style.display = 'none';
+            }
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Management - Products</title>
+    <link href="https://api.fontshare.com/v2/css?f[]=outfit@100,200,300,400,500,600,700,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Counta Inventory Management</h1>
+        </header>
+        
+        <nav class="sidebar">
+            <ul>
+                <li><a href="index.html">Dashboard</a></li>
+                <li><a href="products.html" class="active">Products</a></li>
+                <li><a href="categories.html">Categories</a></li>
+                <li><a href="reports.html">Reports</a></li>
+            </ul>
+        </nav>
+        
+        <main class="content">
+            <section class="products-section">
+                <h2>Product Inventory</h2>
+                
+                <div class="search-container">
+                    <input type="text" placeholder="Search products..." class="search-input">
+                </div>
+
+                <div class="table-responsiveness">
+                    <table class="product-table" id="productTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>101</td>
+                                <td>Product 1</td>
+                                <td>Electronics</td>
+                                <td>50</td>
+                                <td>£1499.99</td>
+                                <td>
+                                    <button class="btn edit">Edit</button>
+                                    <button class="btn delete">Delete</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>102</td>
+                                <td>Product 2</td>
+                                <td>Clothing</td>
+                                <td>75</td>
+                                <td>£699.99</td>
+                                <td>
+                                    <button class="btn edit">Edit</button>
+                                    <button class="btn delete">Delete</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>102</td>
+                                <td>Product 2</td>
+                                <td>Clothing</td>
+                                <td>75</td>
+                                <td>£699.99</td>
+                                <td>
+                                    <button class="btn edit">Edit</button>
+                                    <button class="btn delete">Delete</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>102</td>
+                                <td>Product 2</td>
+                                <td>Clothing</td>
+                                <td>75</td>
+                                <td>£699.99</td>
+                                <td>
+                                    <button class="btn edit">Edit</button>
+                                    <button class="btn delete">Delete</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <button id="addProductBtn">Add Product</button>
+                </div>
+                
+            </section>
+
+            <!-- Modal -->
+            <div id="productModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h2>Add Product</h2>
+                    <form id="productForm">
+                        <label for="productId">ID:</label>
+                        <input type="text" id="productId" required><br>
+                        <label for="productName">Name:</label>
+                        <input type="text" id="productName" required><br>
+                        <label for="productCategory">Category:</label>
+                        <input type="text" id="productCategory" required><br>
+                        <label for="productQuantity">Quantity:</label>
+                        <input type="number" id="productQuantity" required><br>
+                        <label for="productPrice">Price:</label>
+                        <input type="text" id="productPrice" required><br>
+                        <button type="submit">Add Product</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Edit Product Modal -->
+<div id="editProductModal" class="modal">
+    <div class="modal-content">
+        <span class="close" id="editClose">&times;</span>
+        <h2>Edit Product</h2>
+        <form id="editProductForm">
+            <label for="editProductId">ID:</label>
+            <input type="text" id="editProductId" required readonly><br>
+            <label for="editProductName">Name:</label>
+            <input type="text" id="editProductName" required><br>
+            <label for="editProductCategory">Category:</label>
+            <input type="text" id="editProductCategory" required><br>
+            <label for="editProductQuantity">Quantity:</label>
+            <input type="number" id="editProductQuantity" required><br>
+            <label for="editProductPrice">Price:</label>
+            <input type="text" id="editProductPrice" required><br>
+            <button type="submit">Update Product</button>
+        </form>
+    </div>
+</div>
+        </main>
+
+        <footer class="footer">
+            © 2024 Inventory Management Co.
+        </footer>
+    </div>
+
+   <script>
+    // Get modal elements
+    var modal = document.getElementById("productModal");
+    var btn = document.getElementById("addProductBtn");
+    var span = document.getElementsByClassName("close")[0];
+    var productTable = document.getElementById("productTable").getElementsByTagName('tbody')[0];
+
+    // Open the modal when the button is clicked
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    // Close the modal when the user clicks on <span> (x)
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    // Close the modal when the user clicks anywhere outside of the modal
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    // Handle form submission
+    document.getElementById("productForm").onsubmit = function(event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        // Get form values
+        var id = document.getElementById("productId").value;
+        var name = document.getElementById("productName").value;
+        var category = document.getElementById("productCategory").value;
+        var quantity = document.getElementById("productQuantity").value;
+        var price = document.getElementById("productPrice").value;
+
+        // Create a new row and cells
+        var newRow = productTable.insertRow();
+        newRow.innerHTML = `
+            <td>${id}</td>
+            <td>${name}</td>
+            <td>${category}</td>
+            <td>${quantity}</td>
+            <td>${price}</td>
+            <td>
+                <button class="btn edit">Edit</button>
+                <button class="btn delete">Delete</button>
+            </td>
+        `;
+
+        // Close the modal
+        modal.style.display = "none";
+
+        // Clear the form
+        document.getElementById("productForm").reset();
+    }
+
+    // Get edit modal elements
+    var editModal = document.getElementById("editProductModal");
+    var editClose = document.getElementById("editClose");
+    var editProductForm = document.getElementById("editProductForm");
+
+    // Open the edit modal when the edit button is clicked
+    productTable.addEventListener('click', function(event) {
+        if (event.target.classList.contains('edit')) {
+            var row = event.target.closest('tr');
+            var id = row.cells[0].innerText;
+            var name = row.cells[1].innerText;
+            var category = row.cells[2].innerText;
+            var quantity = row.cells[3].innerText;
+            var price = row.cells[4].innerText;
+
+            // Populate the edit form with current values
+            document.getElementById("editProductId").value = id;
+            document.getElementById("editProductName").value = name;
+            document.getElementById("editProductCategory").value = category;
+            document.getElementById("editProductQuantity").value = quantity;
+            document.getElementById("editProductPrice").value = price;
+
+            // Show the edit modal
+            editModal.style.display = "block";
+        }
+    });
+
+//             // Delete functionality
+// if (event.target.classList.contains('delete')) {
+//     // Confirm deletion
+//     if (confirm("Are you sure you want to delete this product?")) {
+//         var row = event.target.closest('tr'); // Get the closest row to the clicked button
+//         productTable.deleteRow(row.rowIndex); // Delete the row using its index
+//     }
+// }
+
+//     // Close the edit modal when the user clicks on <span> (x)
+//     editClose.onclick = function() {
+//         editModal.style.display = "none";
+//     }
+
+//     // Close the edit modal when the user clicks anywhere outside of the modal
+//     window.onclick = function(event) {
+//         if (event.target == editModal) {
+//             editModal.style.display = "none";
+//         }
+//     }
+
+//     // Handle edit form submission
+//     editProductForm.onsubmit = function(event) {
+//         event.preventDefault(); // Prevent default form submission
+
+//         // Get form values
+//         var id = document.getElementById("editProductId").value;
+//         var name = document.getElementById("editProductName").value;
+//         var category = document.getElementById("editProductCategory").value;
+//         var quantity = document.getElementById("editProductQuantity").value;
+//         var price = document.getElementById("editProductPrice").value;
+
+//         // Find the row to update
+//         for (var i = 0; i < productTable.rows.length; i++) {
+//             if (productTable.rows[i].cells[0].innerText === id) {
+//                 // Update the row with new values
+//                 productTable.rows[i].cells[1].innerText = name;
+//                 productTable.rows[i].cells[2].innerText = category;
+//                 productTable.rows[i].cells[3].innerText = quantity;
+//                 productTable.rows[i].cells[4].innerText = price;
+//                 break;
+//             }
+//         }
+
+//         // Close the modal
+//         editModal.style.display = "none";
+//     }
+</script>
+</body>
+</html>
